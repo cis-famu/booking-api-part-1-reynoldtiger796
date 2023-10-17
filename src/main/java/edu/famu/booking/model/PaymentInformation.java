@@ -1,4 +1,4 @@
-package model;
+package edu.famu.booking.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

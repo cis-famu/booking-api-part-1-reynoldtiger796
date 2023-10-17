@@ -6,8 +6,7 @@ import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.QuerySnapshot;
 import com.google.firebase.cloud.FirestoreClient;
-import model.Hotels;
-import model.PaymentInformation;
+import edu.famu.booking.model.Hotels;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -26,10 +25,10 @@ public class HotelsService {
     {
         Hotels hotels = null;
         if(document.exists()){
-            List<String> amenities = document.get("amenities", List.class);
-            hotels = new Hotels(document.getId(),document.getString("name"),document.getString("description"),document.getDouble("rating"),document.getString("address"), document.getString("contactInformation"),amenities, document.getTimestamp("createdAt").toProto());
+            ArrayList<String> amenities = (ArrayList<String>) document.get("amenities");
+            hotels = new Hotels(document.getId(),document.getString("name"),document.getString("description"),document.getDouble("rating"),document.getString("address"), document.getString("contactInformation"),amenities, document.getTimestamp("createdAt"));
         }
-        return document.toObject(Hotels.class);
+        return hotels;
 
     }
     public ArrayList<Hotels> getAllHotels() throws ExecutionException, InterruptedException {

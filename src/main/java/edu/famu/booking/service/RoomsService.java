@@ -6,12 +6,10 @@ import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.QuerySnapshot;
 import com.google.firebase.cloud.FirestoreClient;
-import model.Rooms;
-import model.PaymentInformation;
+import edu.famu.booking.model.Rooms;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 @Service
@@ -26,11 +24,10 @@ public class RoomsService {
     {
         Rooms rooms = null;
         if(document.exists()){
-            ArrayList<String> imagesList = document.get("images", ArrayList.class);
-            String[] images = imagesList.toArray(new String[imagesList.size()]);
-            rooms = new Rooms(document.getId(),document.getId(),document.getString("roomType"),document.getDouble("price"),document.getDouble("capacity").intValue(), document.getString("description"),document.getString("availability"),images, document.getTimestamp("createdAt").toProto());
+            ArrayList<String> images = (ArrayList<String>) document.get("images");
+            rooms = new Rooms(document.getId(),document.getString("hotelID"),document.getString("roomType"),document.getDouble("price"),document.getDouble("capacity").intValue(), document.getString("description"),document.getString("availability"),images, document.getTimestamp("createdAt"));
         }
-        return document.toObject(Rooms.class);
+        return rooms;
 
     }
     public ArrayList<Rooms> getAllRooms() throws ExecutionException, InterruptedException {
@@ -49,7 +46,7 @@ public class RoomsService {
     }
 
     public Rooms getRoomsById(String roomID) throws ExecutionException, InterruptedException {
-        CollectionReference roomsCollection = firestore.collection("Hotels");
+        CollectionReference roomsCollection = firestore.collection("Rooms");
         ApiFuture<DocumentSnapshot> future = roomsCollection.document(roomID).get();
         DocumentSnapshot document = future.get();
 

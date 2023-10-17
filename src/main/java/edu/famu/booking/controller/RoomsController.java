@@ -1,5 +1,4 @@
 package edu.famu.booking.controller;
-import edu.famu.booking.service.HotelsService;
 import edu.famu.booking.service.RoomsService;
 import edu.famu.booking.util.ApiResponse;
 import org.springframework.http.ResponseEntity;

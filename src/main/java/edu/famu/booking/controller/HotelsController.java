@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("hotel")
+//hello
 public class HotelsController {
     private HotelsService hotelsService;
 

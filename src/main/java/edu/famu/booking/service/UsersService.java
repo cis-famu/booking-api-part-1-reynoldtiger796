@@ -3,12 +3,11 @@ package edu.famu.booking.service;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
-import model.PaymentInformation;
-import model.Users;
+import edu.famu.booking.model.PaymentInformation;
+import edu.famu.booking.model.Users;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 @Service
@@ -19,14 +18,14 @@ public class UsersService {
         this.firestore = FirestoreClient.getFirestore();
     }
 
-    private Users documentSnapshotToUsers(DocumentSnapshot document)
-    {
+    private Users documentSnapshotToUsers(DocumentSnapshot document) throws ExecutionException, InterruptedException {
         Users users = null;
         if(document.exists()){
-
-            users = new Users(document.getId(),document.getString("name"),document.getString("email"),document.getString("phone"), (DocumentReference)document.get("paymentInformation").toObject(PaymentInformation.class), (document.getTimestamp("createdAt")));
+            PaymentInformationService paymentInformationService = new PaymentInformationService();
+            PaymentInformation paymentInformation = paymentInformationService.getPaymentInformation((DocumentReference) document.get("paymentInformation"));
+            users = new Users(document.getId(),document.getString("name"),document.getString("email"),document.getString("phone"), paymentInformation, document.getTimestamp("createdAt"));
         }
-        return document.toObject(Users.class);
+        return users;
 
     }
     public ArrayList<Users> getAllUsers() throws ExecutionException, InterruptedException {

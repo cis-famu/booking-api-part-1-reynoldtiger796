@@ -1,4 +1,4 @@
-package model;
+package edu.famu.booking.model;
 
 import com.google.firebase.database.annotations.Nullable;
 import com.google.protobuf.Timestamp;

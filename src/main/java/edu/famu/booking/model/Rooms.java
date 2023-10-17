@@ -1,18 +1,22 @@
-package model;
+package edu.famu.booking.model;
 
+import com.google.cloud.Timestamp;
+import com.google.cloud.firestore.annotation.DocumentId;
 import com.google.firebase.database.annotations.Nullable;
-import com.google.protobuf.Timestamp;
+
 import com.google.protobuf.util.Timestamps;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Rooms {
+    @DocumentId
     private @Nullable String roomID;
     private String hotelID;
     private String roomType;
@@ -20,10 +24,10 @@ public class Rooms {
     private int capacity;
     private String description;
     private String availability;
-    private String[] images;
-    private Timestamp createdAt;
+    private ArrayList<String> images;
+    private @Nullable Timestamp createdAt;
 
     public void setCreatedAt(String createdAt) throws ParseException {
-        this.createdAt = com.google.cloud.Timestamp.fromProto(Timestamps.parse(createdAt)).toProto();
+        this.createdAt = Timestamp.fromProto(Timestamps.parse(createdAt));
     }
 }
