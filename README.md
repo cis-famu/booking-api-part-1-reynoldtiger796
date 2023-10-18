@@ -2,6 +2,9 @@
 
 **Required Stories**
 <blockquote class="imgur-embed-pub" lang="en" data-id="a/ATQy9PH" data-context="false" ><a href="//imgur.com/a/ATQy9PH"></a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
+
+https://imgur.com/a/ATQy9PH
+
 - Create a Firebase Database for your application. **3pts** (Done)
 - The name in the class fields should match all of the names in the last coding assignment. (Done)
 - Add a createdAt field to every collection. (Done)
